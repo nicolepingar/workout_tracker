@@ -20,6 +20,8 @@ To start the server, please run the following command:
 
 ## Usage 
 
+Link to deployed application: https://tranquil-depths-72212.herokuapp.com/
+
 Photographs of application: 
 
 ![Picture of Workout Tracker](assets/dashboard.jpg)
