@@ -41,9 +41,29 @@ router.post("/api/workouts", (req, res) => {
         .catch(err => {
             res.status(400).json(err);
         });
-})
+});
 // get workout in range
+router.get("/api/workouts/range", (req, res) => {
+    Workout.aggregate([
+        {
+            $addFields: {
+                totalDuration: {
+                    $sum: `$exercises.duration`
+                },
+                totalPounds: {
+                    $sum: `$exercises.weight`
+                }
+            },
+        }
+    ])
+        .then(dbWorkout => {
+            res.json(dbWorkout);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
 
+});
 // get routes for html paths
 router.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
