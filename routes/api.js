@@ -3,7 +3,7 @@ const router = require("express").Router();
 const Workout = require("../models/Workout")
 // get last workout 
 router.get("/api/workouts", (req, res) => {
-    Workout.find().sort({ day: -1 }).limit(1)
+    Workout.find().sort({ day: -1 }).limit(1) // sorts data from closest to current date to farthest 
     Workout.aggregate([ // adds duration fields of exercises as "Total Workout Duration" 
         {
             $addFields: {
@@ -23,7 +23,7 @@ router.get("/api/workouts", (req, res) => {
 // add exercise
 router.put("/api/workouts/:id", (req, res) => {
     Workout.findByIdAndUpdate(req.params.id, {
-        $push: { exercises: req.body }
+        $push: { exercises: req.body } // push new exercise onto Workout model exercise array of objects
     })
         .then(dbWorkout => {
             res.json(dbWorkout);
@@ -62,7 +62,6 @@ router.get("/api/workouts/range", (req, res) => {
         .catch(err => {
             res.status(400).json(err);
         });
-
 });
 // get routes for html paths
 router.get("/", (req, res) => {
